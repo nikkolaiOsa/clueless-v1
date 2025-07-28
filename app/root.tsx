@@ -6,9 +6,12 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
-
+import React from "react";
 import type { Route } from "./+types/root";
 import "./app.css";
+
+import Header from "./global/Header";
+import PredictiveSearch from "./global/PredictiveSearch";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -24,6 +27,7 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const [search, setSearch] = React.useState("");
   return (
     <html lang="en">
       <head>
@@ -33,6 +37,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
+        <Header title="Library">
+           <PredictiveSearch value={search} onChange={setSearch} placeholder="Search books..." />
+        </Header>
         {children}
         <ScrollRestoration />
         <Scripts />

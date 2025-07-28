@@ -1,9 +1,8 @@
-import logoDark from "./logo-dark.svg";
-import logoLight from "./logo-light.svg";
 import React, { useState } from 'react';
 import { useLocation } from 'react-router';
 import Papa from 'papaparse';
 import { useParams } from "react-router";
+import PredictiveSearch from "~/global/PredictiveSearch";
 
 function Welcome() {
   const [data, setData] = useState<Record<string, unknown>[]>([]);
@@ -15,6 +14,7 @@ function Welcome() {
     "Year Published"
   ]);
   const [page, setPage] = useState(1);
+  const [search, setSearch] = React.useState("");
   const rowsPerPage = 10;
 
   const fetchCSV = async () => {
@@ -46,6 +46,7 @@ function Welcome() {
 
   return (
     <div>
+      <PredictiveSearch value={search} onChange={setSearch} placeholder="Search books..." />
       <button onClick={fetchCSV}>Load Goodreads CSV</button>
       {headers.length > 0 && (
         <div style={{ margin: "1em 0" }}>
